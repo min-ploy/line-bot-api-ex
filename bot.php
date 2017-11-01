@@ -50,7 +50,7 @@ if (!is_null($events['events'])) {
 					 ];
           break;
           case 'หาโรงพยาบาล': 
-            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819081, 100.514684&radius=500&type=hospital&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819081, 100.514684&radius=10000&type=hospital&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
             $curl_handle = curl_init();
             curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt( $curl_handle, CURLOPT_URL, $url );
@@ -110,7 +110,7 @@ if (!is_null($events['events'])) {
 					 ];
           break;
           case 'หาสปา': 
-            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819081, 100.514684&radius=500&type=spa&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819081, 100.514684&radius=1000&type=spa&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
             $curl_handle = curl_init();
             curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt( $curl_handle, CURLOPT_URL, $url );
