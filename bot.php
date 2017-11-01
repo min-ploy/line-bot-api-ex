@@ -17,9 +17,100 @@ if (!is_null($events['events'])) {
 	        $replyToken = $event['replyToken'];
     
 			switch($text){
-					
+        
+				
            case 'หาร้านอาหาร': 
-            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.818974,100.514368&radius=1000pe=restaurant&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819081, 100.514684&radius=500&type=restaurant&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+            $curl_handle = curl_init();
+            curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt( $curl_handle, CURLOPT_URL, $url );
+            curl_setopt( $curl_handle, CURLOPT_RETURNTRANSFER, true);
+            $text = curl_exec( $curl_handle );
+            curl_close( $curl_handle ); 
+            $obj = json_decode($text, TRUE);
+            for ($x = 0; $x <= 10; $x++) {
+               $mes = $obj['results'][$x]['place_id']; 
+               $url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=$mes&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+               $curl_handle = curl_init();
+               curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+               curl_setopt( $curl_handle, CURLOPT_URL, $url );
+               curl_setopt( $curl_handle, CURLOPT_RETURNTRANSFER, true);
+               $text = curl_exec( $curl_handle );
+               curl_close( $curl_handle ); 
+               $object = json_decode($text, TRUE);
+               $name = $object['result']['name']; 
+               $number = $object['result']['formatted_phone_number'];
+               $address = $object['result']['formatted_address'];
+               $addname .= "->>".$name."\n".$number."\n".$address."\n\n";
+            }            
+				    // Build message to reply back
+				    $messages = [
+							     'type' => 'text',
+							     'text' => "$addname"
+					 ];
+          break;
+          case 'หาโรงพยาบาล': 
+            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819081, 100.514684&radius=500&type=hospital&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+            $curl_handle = curl_init();
+            curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt( $curl_handle, CURLOPT_URL, $url );
+            curl_setopt( $curl_handle, CURLOPT_RETURNTRANSFER, true);
+            $text = curl_exec( $curl_handle );
+            curl_close( $curl_handle ); 
+            $obj = json_decode($text, TRUE);
+            for ($x = 0; $x <= 10; $x++) {
+               $mes = $obj['results'][$x]['place_id']; 
+               $url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=$mes&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+               $curl_handle = curl_init();
+               curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+               curl_setopt( $curl_handle, CURLOPT_URL, $url );
+               curl_setopt( $curl_handle, CURLOPT_RETURNTRANSFER, true);
+               $text = curl_exec( $curl_handle );
+               curl_close( $curl_handle ); 
+               $object = json_decode($text, TRUE);
+               $name = $object['result']['name']; 
+               $number = $object['result']['formatted_phone_number'];
+               $address = $object['result']['formatted_address'];
+               $addname .= "->>".$name."\n".$number."\n".$address."\n\n";
+            }            
+				    // Build message to reply back
+				    $messages = [
+							     'type' => 'text',
+							     'text' => "$addname"
+					 ];
+          break;
+          case 'หาเอทีเอ็ม': 
+            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819081, 100.514684&radius=500&type=atm&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+            $curl_handle = curl_init();
+            curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt( $curl_handle, CURLOPT_URL, $url );
+            curl_setopt( $curl_handle, CURLOPT_RETURNTRANSFER, true);
+            $text = curl_exec( $curl_handle );
+            curl_close( $curl_handle ); 
+            $obj = json_decode($text, TRUE);
+            for ($x = 0; $x <= 10; $x++) {
+               $mes = $obj['results'][$x]['place_id']; 
+               $url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=$mes&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+               $curl_handle = curl_init();
+               curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+               curl_setopt( $curl_handle, CURLOPT_URL, $url );
+               curl_setopt( $curl_handle, CURLOPT_RETURNTRANSFER, true);
+               $text = curl_exec( $curl_handle );
+               curl_close( $curl_handle ); 
+               $object = json_decode($text, TRUE);
+               $name = $object['result']['name']; 
+               $number = $object['result']['formatted_phone_number'];
+               $address = $object['result']['formatted_address'];
+               $addname .= "->>".$name."\n".$address."\n\n";
+            }            
+				    // Build message to reply back
+				    $messages = [
+							     'type' => 'text',
+							     'text' => "$addname"
+					 ];
+          break;
+          case 'หาสปา': 
+            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819081, 100.514684&radius=500&type=spa&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
             $curl_handle = curl_init();
             curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt( $curl_handle, CURLOPT_URL, $url );
