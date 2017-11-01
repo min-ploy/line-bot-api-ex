@@ -18,9 +18,101 @@ if (!is_null($events['events'])) {
     
 			switch($text){
         
-				
+				case 'เปิดพัดลม':
+				    // Build message to reply back           
+				    $messages = [
+							     'type' => 'text',
+							     'text' => 'เปิดการใช้งานพัดลม'			
+							    ];  
+            $request = '1'; 
+            $API_KEY = 'FIV2UGQG1OAR6K65';
+            $url = "http://api.thingspeak.com/update?key=".$API_KEY."&field1=".$request;
+            $curl_handle = curl_init();
+            curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt( $curl_handle, CURLOPT_URL, $url );
+            curl_setopt( $curl_handle, CURLOPT_RETURNTRANSFER, true);
+            curl_exec( $curl_handle );
+            curl_close( $curl_handle ); 
+				    break;
+				case 'ปิดพัดลม':
+				    // Build message to reply back
+				    $messages = [
+							     'type' => 'text',
+							     'text' => 'ปิดการใช้งานพัดลม'			
+							    ];  
+            $request = '0'; 
+            $API_KEY = 'FIV2UGQG1OAR6K65';
+            $url = "http://api.thingspeak.com/update?key=".$API_KEY."&field1=".$request;
+            $curl_handle = curl_init();
+            curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt( $curl_handle, CURLOPT_URL, $url );
+            curl_setopt( $curl_handle, CURLOPT_RETURNTRANSFER, true);
+            curl_exec( $curl_handle );
+            curl_close( $curl_handle ); 
+				    break;
+            
+        case 'อัตโนมัติ':
+				    // Build message to reply back
+				    $messages = [
+							     'type' => 'text',
+							     'text' => 'เปิดการใช้งานอัตโนมัติ'			
+							    ];  
+            $request = '2'; 
+            $API_KEY = 'FIV2UGQG1OAR6K65';
+            $url = "http://api.thingspeak.com/update?key=".$API_KEY."&field1=".$request;
+            $curl_handle = curl_init();
+            curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt( $curl_handle, CURLOPT_URL, $url );
+            curl_setopt( $curl_handle, CURLOPT_RETURNTRANSFER, true);
+            curl_exec( $curl_handle );
+            curl_close( $curl_handle ); 
+				    break;
+            
+				case 'อุณหภูมิ': 
+            $url = "http://api.thingspeak.com/channels/202503/feeds/last.json?api_key=0QJTN9QPAXWCI68I";
+            $curl_handle = curl_init();
+            curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt( $curl_handle, CURLOPT_URL, $url );
+            curl_setopt( $curl_handle, CURLOPT_RETURNTRANSFER, true);
+            $text = curl_exec( $curl_handle );
+            curl_close( $curl_handle ); 
+            $obj = json_decode($text);
+            $mes = $obj->{'field1'}; 
+            
+				    // Build message to reply back
+				    $messages = [
+							     'type' => 'text',
+							     'text' => "ขณะนี้อุณหภูมิ  $mes  C"
+							    ];
+            
+				    break;
+         case 'สถานะ': 
+            $url = "http://api.thingspeak.com/channels/202506/feeds/last.json?api_key=FIV2UGQG1OAR6K65";
+            $curl_handle = curl_init();
+            curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt( $curl_handle, CURLOPT_URL, $url );
+            curl_setopt( $curl_handle, CURLOPT_RETURNTRANSFER, true);
+            $text = curl_exec( $curl_handle );
+            curl_close( $curl_handle ); 
+            $obj = json_decode($text);
+            $mes = $obj->{'field1'};
+            if($mes == "1"){
+               $mes = "พัดลมกำลังทำงาน...";
+            }elseif($mes == "0"){
+               $mes = "พัดลมไม่ได้ทำงาน...";
+            }else{
+               $mes = "อัตโนมัติ";
+            }
+            
+				    // Build message to reply back
+				    $messages = [
+							     'type' => 'text',
+							     'text' => $mes
+							    ];
+            
+				    break;
            case 'หาร้านอาหาร': 
-            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819081,100.514684&radius=500&type=restaurant&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819091, 100.514856&radius=500&type=restaurant&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
             $curl_handle = curl_init();
             curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt( $curl_handle, CURLOPT_URL, $url );
@@ -50,7 +142,7 @@ if (!is_null($events['events'])) {
 					 ];
           break;
           case 'หาโรงพยาบาล': 
-            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819081,100.514684&radius=10000&type=hospital&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819091, 100.514856&radius=10000&type=hospital&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
             $curl_handle = curl_init();
             curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt( $curl_handle, CURLOPT_URL, $url );
@@ -80,7 +172,7 @@ if (!is_null($events['events'])) {
 					 ];
           break;
           case 'หาเอทีเอ็ม': 
-            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819081,100.514684&radius=500&type=atm&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819091, 100.514856&radius=500&type=atm&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
             $curl_handle = curl_init();
             curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt( $curl_handle, CURLOPT_URL, $url );
@@ -110,7 +202,7 @@ if (!is_null($events['events'])) {
 					 ];
           break;
           case 'หาสปา': 
-            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819081,100.514684&radius=1000&type=spa&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
+            $url = "https://maps.googleapis.com/maps/api/place/radarsearch/json?language=th&location=13.819091, 100.514856&radius=1000&type=spa&key=AIzaSyBEA0UcZj9m-fYvwGTx0aoITGJxyWLdGm4";
             $curl_handle = curl_init();
             curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt( $curl_handle, CURLOPT_URL, $url );
